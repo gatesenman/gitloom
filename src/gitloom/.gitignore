@@ -1,0 +1,11 @@
+node_modules/
+out/
+release/
+*.log
+.DS_Store
+.scratch/
+*.tsbuildinfo
+scratch/
+build/bundled-tools/*.exe
+build/bundled-tools/ocr/
+build/bundled-tools/.ocr-staging/

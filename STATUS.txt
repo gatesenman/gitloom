@@ -1,0 +1,7 @@
+GitLoom 0.6.14
+Setup: GitLoom-Setup-0.6.14-x64.exe
+SHA256: c90849380b8d90fef4203639243602b564d08c8c2d57663a6c410b83faa3c45b
+Commit: 8c986f6
+Fixes: 钩子 tab always selectable (empty state when no repo); idle-prefetch AutomationHub
+Also includes 0.6.13 KeepHub + route lazy for automation first-open
+Delivered: 2026-11-02 Asia/Shanghai

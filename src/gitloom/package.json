@@ -1,0 +1,202 @@
+{
+  "name": "gitloom",
+  "productName": "GitLoom",
+  "version": "0.6.14",
+  "description": "GitLoom 织线 — 跨平台多仓库 Git 桌面客户端（Electron + React + TypeScript），内置 AI 助手",
+  "main": "out/main/index.js",
+  "author": {
+    "name": "GitLoom",
+    "email": "dev@gitloom.local"
+  },
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "electron-vite dev",
+    "build": "npm run typecheck && electron-vite build",
+    "typecheck": "tsc --noEmit -p tsconfig.node.json && tsc --noEmit -p tsconfig.web.json",
+    "test": "vitest run",
+    "icons": "node scripts/make-icons.mjs",
+    "dist": "npm run fetch-tools && npm run build && electron-builder",
+    "dist:win": "npm run fetch-tools && npm run build && electron-builder --win",
+    "dist:mac": "npm run build && electron-builder --mac",
+    "dist:linux": "npm run build && electron-builder --linux",
+    "e2e": "npm run build && node e2e/e2e.mjs && node e2e/e2e-multi.mjs",
+    "demo": "bash scripts/make-demo-repos.sh /tmp/gitloom-demo docs/hooks/llmwiki-post-commit.sh",
+    "fetch-tools": "node scripts/fetch-bundled-tools.mjs",
+    "dist:win:x64": "npm run fetch-tools && npm run build && electron-builder --win nsis --x64"
+  },
+  "devDependencies": {
+    "@monaco-editor/react": "^4.6.0",
+    "@resvg/resvg-js": "^2.6.2",
+    "@types/node": "^20.14.0",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "@xyflow/react": "^12.12.0",
+    "electron": "^33.4.11",
+    "electron-builder": "^25.1.8",
+    "electron-vite": "^2.3.0",
+    "elkjs": "^0.12.0",
+    "html-to-image": "^1.11.13",
+    "monaco-editor": "^0.52.0",
+    "playwright-core": "^1.48.2",
+    "png-to-ico": "^2.1.8",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "tree-sitter-wasms": "^0.1.13",
+    "typescript": "^5.5.4",
+    "vite": "^5.4.8",
+    "vitest": "^2.1.2",
+    "web-tree-sitter": "^0.20.8",
+    "zod": "^4.6.7"
+  },
+  "build": {
+    "appId": "dev.gitloom.app",
+    "productName": "GitLoom",
+    "copyright": "Copyright © 2026 GitLoom",
+    "directories": {
+      "output": "release",
+      "buildResources": "build"
+    },
+    "files": [
+      "out/**/*",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "build/icon.png",
+        "to": "icon.png"
+      },
+      {
+        "from": "build/icon.ico",
+        "to": "icon.ico"
+      },
+      {
+        "from": "node_modules/tree-sitter-wasms/out",
+        "to": "grammars",
+        "filter": [
+          "tree-sitter-typescript.wasm",
+          "tree-sitter-tsx.wasm",
+          "tree-sitter-javascript.wasm",
+          "tree-sitter-python.wasm",
+          "tree-sitter-java.wasm",
+          "tree-sitter-go.wasm",
+          "tree-sitter-rust.wasm",
+          "tree-sitter-c_sharp.wasm",
+          "tree-sitter-kotlin.wasm"
+        ]
+      },
+      {
+        "from": "node_modules/web-tree-sitter/tree-sitter.wasm",
+        "to": "grammars/tree-sitter.wasm"
+      },
+      {
+        "from": "build/bundled-tools/osv-scanner.exe",
+        "to": "tools/osv-scanner.exe"
+      },
+      {
+        "from": "build/bundled-tools/ocr",
+        "to": "tools/ocr"
+      }
+    ],
+    "asar": true,
+    "artifactName": "${productName}-${version}-${os}-${arch}.${ext}",
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "zip",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build/icon.ico",
+      "signAndEditExecutable": false
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "artifactName": "${productName}-Setup-${version}-${arch}.${ext}",
+      "shortcutName": "GitLoom"
+    },
+    "portable": {
+      "artifactName": "${productName}-Portable-${version}.${ext}"
+    },
+    "mac": {
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        },
+        {
+          "target": "zip",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        }
+      ],
+      "category": "public.app-category.developer-tools",
+      "icon": "build/icon.icns",
+      "hardenedRuntime": true
+    },
+    "linux": {
+      "target": [
+        {
+          "target": "AppImage",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "tar.gz",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "deb",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "category": "Development",
+      "icon": "build/icons",
+      "maintainer": "GitLoom <dev@gitloom.local>",
+      "synopsis": "跨平台多仓库 Git 客户端",
+      "executableName": "gitloom"
+    },
+    "publish": null,
+    "asarUnpack": [
+      "out/main/**"
+    ],
+    "afterPack": "scripts/after-pack-win-icon.mjs"
+  },
+  "homepage": "https://github.com/your-org/gitloom",
+  "dependencies": {
+    "@fontsource-variable/inter": "^5.3.0",
+    "@fontsource/jetbrains-mono": "^5.3.0",
+    "lucide-react": "^0.453.0"
+  },
+  "allowScripts": {
+    "electron@33.4.11": true,
+    "esbuild@0.21.5": true
+  }
+}

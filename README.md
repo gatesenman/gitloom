@@ -15,25 +15,23 @@
 
 ## 从源码运行
 
-源码在 `src/gitloom/`。本仓库不包含安装包。
+源码在仓库根目录。本仓库不包含安装包。
 
 ```bash
-cd src/gitloom
 npm install
 npm run dev
 npm test
 npm run build
 ```
-
 完整功能与开发说明见该目录 README。
 
 ## 文档
 
-- [源码 README](src/gitloom/README.md)
+- [源码 README](README.original.md)
 
 ## 许可证
 
-`src/gitloom/package.json` 声明为 MIT。仓库根目录未附带 LICENSE 文件。
+`package.json` 声明为 MIT。仓库根目录未附带 LICENSE 文件。
 
 ---
 
@@ -56,23 +54,21 @@ npm run build
 
 ## Getting started
 
-Source is under `src/gitloom/`. This repository does not include installers.
+Source is at the repository root. This repository does not include installers.
 
 ```bash
-cd src/gitloom
 npm install
 npm run dev
 npm test
 npm run build
 ```
-
 See that directory's README for the full feature and development guide.
 
 ## Documentation
 
-- [源码 README](src/gitloom/README.md)
+- [源码 README](README.original.md)
 
 ## License
 
-`src/gitloom/package.json` declares MIT. There is no LICENSE file at the repository root.
+`package.json` declares MIT. There is no LICENSE file at the repository root.
 

@@ -1,2 +1,0 @@
-c90849380b8d90fef4203639243602b564d08c8c2d57663a6c410b83faa3c45b  GitLoom-Setup-0.6.14-x64.exe
-ea55cd3a087e02a9a2c768cb2dfa3f89193040c876cf1dbefb587ac5c557bfb2  gitloom-source-0.6.14.tar.gz
